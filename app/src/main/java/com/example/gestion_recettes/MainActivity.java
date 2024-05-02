@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,20 @@ public class MainActivity extends AppCompatActivity {
         Btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String user = username.getText().toString();
+                String pass =password.getText().toString();
+                if(user.equals("")||pass.equals("")){
+                    Toast.makeText(MainActivity.this,"Please inter your information!",Toast.LENGTH_SHORT).show();
+                }else {
+                    boolean checkuserpass=DB.checkUsernamePassword(user , pass);
+                    if (checkuserpass==true){
+                        Toast.makeText(MainActivity.this,"Sign in successfully",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(MainActivity.this,"Username or password invalid",Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
         sginUp.setOnClickListener(new View.OnClickListener() {
