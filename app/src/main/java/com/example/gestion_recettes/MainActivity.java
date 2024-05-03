@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
-        username =(EditText) findViewById(R.id.username);
-        password =(EditText) findViewById(R.id.password);
         Btnlogin =(Button) findViewById(R.id.login);
         sginUp =(Button) findViewById(R.id.sginUp);
         DB=new DBHelper(this);
@@ -39,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                username =(EditText) findViewById(R.id.username);
+                password =(EditText) findViewById(R.id.password);
+                DBHelper db = new DBHelper(getApplicationContext());
+                Boolean res = db.checkUsernamePassword(username.getText().toString(),password.getText().toString());
+                if (res){
+                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+                }
             }
         });
         sginUp.setOnClickListener(new View.OnClickListener() {

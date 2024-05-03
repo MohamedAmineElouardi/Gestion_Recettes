@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,16 +28,29 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
-        username = (EditText) findViewById(R.id.username1);
-        pass1 = (EditText) findViewById(R.id.password1);
-        pass2 = (EditText) findViewById(R.id.password2);
         btnCreat =(Button) findViewById(R.id.btnCreate);
         back =(Button) findViewById(R.id.back);
 
         btnCreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                username = (EditText) findViewById(R.id.username);
+                pass1 = (EditText) findViewById(R.id.password1);
+                pass2 = (EditText) findViewById(R.id.password2);
+                if (pass1.getText().toString().equals(pass2.getText().toString())){
+                    String message = "Passwords don't match";
+                    Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+                }
+                else{
+                    DBHelper db = new DBHelper(getApplicationContext());
+                    boolean result = db.insertData(username.getText().toString(), pass1.getText().toString());
+                    if (result){
+                        Toast.makeText(getApplicationContext(),"Account created successfully you can login now.", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"An error has occurred please try again.", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {

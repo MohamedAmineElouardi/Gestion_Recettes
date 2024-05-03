@@ -12,13 +12,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String Db_name= "Gestion_Recette";
 
     public DBHelper( Context context) {
-        super(context, "Gestion_Recette", null, 1);
+        super(context, Db_name, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create Table users ( username TEXT primary key, password TEXT)");
-
     }
 
     @Override
@@ -32,9 +31,12 @@ public class DBHelper extends SQLiteOpenHelper {
         CV.put("username",username);
         CV.put("password",password);
         long result =db.insert("users",null,CV);
-        if (result==-1) return false;
-        else
-             return true;
+        if (result==-1) {
+            return false;
+        }
+        else {
+            return true;
+        }
 
     }
     public boolean checkUsername (String username){
@@ -46,7 +48,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean checkUsernamePassword (String username,String password){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor =db.rawQuery("select * from users where username =? and password =?",new String[]{username,password});
-        if (cursor.getCount()>0)return true;
-        else return false;
+        if (cursor.getCount()>0)
+            return true;
+        else
+            return false;
     }
 }
