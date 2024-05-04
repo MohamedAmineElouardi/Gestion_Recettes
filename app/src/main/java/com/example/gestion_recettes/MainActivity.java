@@ -42,8 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(getApplicationContext());
                 Boolean res = db.checkUsernamePassword(username.getText().toString(),password.getText().toString());
                 if (res){
+                    Bundle user_bundle = new Bundle();
+                    user_bundle.putString("username",username.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                    startActivity(intent);
+
+                    startActivity(intent, user_bundle);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();

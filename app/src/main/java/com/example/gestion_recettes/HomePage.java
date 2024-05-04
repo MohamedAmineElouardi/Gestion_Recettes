@@ -1,8 +1,10 @@
 package com.example.gestion_recettes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -29,12 +31,20 @@ public class HomePage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHomePage.toolbar);
+        try{
+            Bundle extras = getIntent().getExtras();
+            TextView user = findViewById(R.id.username_textview);
+            user.setText(extras.getString("username"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         binding.appBarHomePage.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
+                Intent etapeIntent = new Intent(getApplicationContext(), CreationRecette.class);
+                startActivity(etapeIntent);
+
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -48,9 +58,6 @@ public class HomePage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
-
 
     }
 

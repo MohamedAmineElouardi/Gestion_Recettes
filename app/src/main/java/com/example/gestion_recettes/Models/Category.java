@@ -4,6 +4,12 @@ public class Category {
     public int etape_id;
     public String libelle;
 
+
+    public Category(int etape_id, String libelle) {
+        this.etape_id = etape_id;
+        this.libelle = libelle;
+    }
+
     public int getEtape_id() {
         return etape_id;
     }
@@ -20,8 +26,4 @@ public class Category {
         this.libelle = libelle;
     }
 
-    public Category(int etape_id, String libelle) {
-        this.etape_id = etape_id;
-        this.libelle = libelle;
-    }
 }

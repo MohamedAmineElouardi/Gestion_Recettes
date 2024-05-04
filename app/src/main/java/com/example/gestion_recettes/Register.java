@@ -37,7 +37,7 @@ public class Register extends AppCompatActivity {
                 username = (EditText) findViewById(R.id.username);
                 pass1 = (EditText) findViewById(R.id.password1);
                 pass2 = (EditText) findViewById(R.id.password2);
-                if (pass1.getText().toString().equals(pass2.getText().toString())){
+                if (!pass1.getText().toString().equals(pass2.getText().toString())){
                     String message = "Passwords don't match";
                     Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
                 }

@@ -5,44 +5,46 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-
-
 public class DBHelper extends SQLiteOpenHelper {
     public static final String Db_name= "Gestion_Recette";
 
     public DBHelper( Context context) {
         super(context, Db_name, null, 1);
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         // table users
-        db.execSQL("create Table users ( username TEXT primary key, password TEXT)");
+        db.execSQL("CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT)");
+
         // table recette
         db.execSQL("CREATE TABLE recette (" +
                 "recette_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "recette_titre TEXT, " +
                 "recette_duree INTEGER, " +
                 "recette_image TEXT, " +
-                "user_id INTEGER, " +
-                "FOREIGN KEY(user_id) REFERENCES users(user_id))");
+                "username TEXT, " +
+                "category_id INTEGER, " + // Add category_id column
+                "FOREIGN KEY(username) REFERENCES users(username), " +
+                "FOREIGN KEY(category_id) REFERENCES category(category_id))" // Add foreign key constraint for category_id
+        );
 
         // table etape
         db.execSQL("CREATE TABLE etape (" +
                 "etape_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "recette_id INTEGER, " +
                 "text TEXT, " +
-                "FOREIGN KEY(recette_id) REFERENCES recette(recette_id))");
+                "FOREIGN KEY(recette_id) REFERENCES recette(recette_id))"
+        );
 
         // table category
         db.execSQL("CREATE TABLE category (" +
                 "category_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "recette_id INTEGER, " +
-                "libelle TEXT, " +
-                "FOREIGN KEY(recette_id) REFERENCES recette(recette_id))");
+                "libelle TEXT)"
+        );
 
-
+        System.out.println("###################");
+        System.out.println("CREATED THE TABLES");
     }
 
     @Override
