@@ -23,10 +23,10 @@
             app:contentScrim="?attr/colorPrimary">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="215dp"
-                app:srcCompat="@drawable/add_image" />
+                app:srcCompat="@drawable/baseline_image_search_24" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -40,6 +40,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
 
 
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -57,31 +58,76 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/addImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Choisir une image" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Titre :" />
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/RecetteTitre"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Titre" />
+
+                        <EditText
+                            android:id="@+id/RecetteTitre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text" />
-                </LinearLayout>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Duree (minutes)" />
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Categorie" />
+
+                        <Spinner
+                            android:id="@+id/category_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
@@ -89,20 +135,34 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/Text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Duree (minutes)" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="18dp"
+                        android:text="Ingredients" />
+                </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/ingredients"
+                        android:layout_width="wrap_content"
+                        android:lines="5"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="start|top"
+
+                        android:inputType="textMultiLine" />
                 </LinearLayout>
 
                 <Space
@@ -118,7 +178,7 @@
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Etapes :" />
+                        android:text="Etapes" />
 
                     <LinearLayout
                         android:id="@+id/EtapesLayout"
@@ -138,8 +198,8 @@
                     <Button
                         android:id="@+id/addEtape"
                         android:layout_width="200dp"
+                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="110dp"
                         android:text="Ajouter une etape" />
 
 

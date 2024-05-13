@@ -5,6 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
+import android.widget.Toast;
+
+import com.example.gestion_recettes.Models.Category;
+import com.example.gestion_recettes.Models.Recette;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final String Db_name= "Gestion_Recette";
 
@@ -22,9 +32,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 "recette_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "recette_titre TEXT, " +
                 "recette_duree INTEGER, " +
-                "recette_image TEXT, " +
+                "recette_image BLOB, " +
+                "recette_ingredient TEXT, " +
                 "username TEXT, " +
-                "category_id INTEGER, " + // Add category_id column
+                "category_id INTEGER, " +
                 "FOREIGN KEY(username) REFERENCES users(username), " +
                 "FOREIGN KEY(category_id) REFERENCES category(category_id))" // Add foreign key constraint for category_id
         );
@@ -43,16 +54,25 @@ public class DBHelper extends SQLiteOpenHelper {
                 "libelle TEXT)"
         );
 
-        System.out.println("###################");
-        System.out.println("CREATED THE TABLES");
+        // table user_liked
+        db.execSQL("CREATE TABLE user_like(username TEXT, " +
+                "recette_id INTEGER, " +
+                "FOREIGN KEY(username) REFERENCES users(username)," +
+                "FOREIGN KEY(recette_id) REFERENCES recette(recette_id),"+
+                "PRIMARY KEY(username, recette_id))"
+        );
+        insertData("Ahmed", "");
+        /*db.execSQL("Insert into user_like values("+"Ahmed"+",1)");*/
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop Table if exists users");
-        db.execSQL("drop Table if exists recette");
         db.execSQL("drop Table if exists etape");
         db.execSQL("drop Table if exists category");
+        db.execSQL("drop Table if exists users");
+        db.execSQL("drop Table if exists recette");
 
     }
     public boolean insertData(String username, String password){
@@ -69,14 +89,14 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
-    public boolean insertRecette(String titre, int duree, String image, int userId) {
+    public boolean insertRecette(String titre, int duree, byte[] image, String username, String ingredients) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("recette_titre", titre);
         contentValues.put("recette_duree", duree);
         contentValues.put("recette_image", image);
-        contentValues.put("user_id", userId);
-
+        contentValues.put("recette_ingredient", ingredients);
+        contentValues.put("username", username);
         long result = db.insert("recette", null, contentValues);
         return result != -1;
     }
@@ -91,13 +111,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean insertCategory(int recetteId, String libelle) {
+    public boolean insertCategory(String libelle) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("recette_id", recetteId);
-        contentValues.put("text", libelle);
+        contentValues.put("libelle", libelle);
 
-        long result = db.insert("etape", null, contentValues);
+        long result = db.insert("category", null, contentValues);
         return result != -1;
     }
 
@@ -115,5 +134,44 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         else
             return false;
+    }
+    public List<String> listerCategories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor res = db.rawQuery("select * from category", new String[]{});
+        List<String> categoryList = new ArrayList<>();
+        while (res.moveToNext()) {
+            categoryList.add(res.getString(1).toString());
+        }
+        res.close();
+        return categoryList;
+    }
+
+    public String getCategoryId(String name){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select id from category where libelle=?", new String[]{name});
+        if (res.getCount()>0){
+            return res.getString(0);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public ArrayList<Recette> listerRecette(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("select * from Recette", new String[]{});
+        ArrayList<Recette> recetteList = new ArrayList<>();
+        while (cur.moveToNext()){
+            recetteList.add(new Recette(cur.getInt(0),
+                    cur.getString(1),
+                    cur.getInt(2),
+                    cur.getBlob(3),
+                    cur.getString(5),
+                    cur.getString(4),
+                    cur.getInt(6)
+                    ));
+        }
+        return recetteList;
     }
 }

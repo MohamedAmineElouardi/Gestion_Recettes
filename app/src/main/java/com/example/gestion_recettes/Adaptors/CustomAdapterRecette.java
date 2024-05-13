@@ -1,6 +1,8 @@
 package com.example.gestion_recettes.Adaptors;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.example.gestion_recettes.Models.Recette;
 import com.example.gestion_recettes.R;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +39,13 @@ public class CustomAdapterRecette extends ArrayAdapter {
         ImageView imageRecette = convertView.findViewById(R.id.imagerecette);
         TextView titreRecettee = convertView.findViewById(R.id.recetteTitle);
         TextView recetteOwner = convertView.findViewById(R.id.recetteOwner);
-        TextView nbrEtape = convertView.findViewById(R.id.NombreEtape);
-        TextView dureeRecette = convertView.findViewById(R.id.DureeRecette);
+        Chip dureeRecette = convertView.findViewById(R.id.dureeChip);
 
-        imageRecette.setImageResource(recetteArrayList.get(position).getRecette_image());
-
+        byte[] imageByte = recetteArrayList.get(position).getRecette_image();
+        imageRecette.setImageBitmap(BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length));
         titreRecettee.setText(recetteArrayList.get(position).getRecette_titre());
-        recetteOwner.setText(recetteArrayList.get(position).getRecetteOwner().getUsername());
-        nbrEtape.setText(recetteArrayList.get(position).getEtapeList().size());
-        dureeRecette.setText(recetteArrayList.get(position).getRecette_duree());
+        recetteOwner.setText(recetteArrayList.get(position).getRecetteOwner());
+        dureeRecette.setText(String.valueOf(recetteArrayList.get(position).getRecette_duree()) + " min");
 
         return convertView;
 

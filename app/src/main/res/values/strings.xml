@@ -8,9 +8,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_home">Recettes</string>
+    <string name="menu_gallery">Mes Recettes</string>
+    <string name="menu_slideshow">Deconnexion</string>
     <string name="AddButton">Add</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

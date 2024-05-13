@@ -1,33 +1,62 @@
 package com.example.gestion_recettes.Models;
 
 
+import android.net.Uri;
+
 import java.util.List;
 
 public class Recette {
     private int recette_id;
     private String recette_titre;
     private int recette_duree;
-    private int recette_image;
+    private byte[] recette_image;
+    private String recetteOwner;
+    private String ingredients;
+    private int categorie_id;
 
-    private User recetteOwner;
-
-    private List<Etape> etapeList;
-
-    public List<Etape> getEtapeList() {
-        return etapeList;
+    public String getIngredients() {
+        return ingredients;
     }
 
-    public void setEtapeList(List<Etape> etapeList) {
-        this.etapeList = etapeList;
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
-    public User getRecetteOwner() {
+    public Recette(int recette_id, String recette_titre, int recette_duree, byte[] recette_image, String recetteOwner, String ingredients, int categorie_id) {
+        this.recette_id = recette_id;
+        this.recette_titre = recette_titre;
+        this.recette_duree = recette_duree;
+        this.recette_image = recette_image;
+        this.recetteOwner = recetteOwner;
+        this.ingredients = ingredients;
+        this.categorie_id = categorie_id;
+    }
+
+    public byte[] getRecette_image() {
+        return recette_image;
+    }
+
+    public void setRecette_image(byte[] recette_image) {
+        this.recette_image = recette_image;
+    }
+
+    public String getRecetteOwner() {
         return recetteOwner;
     }
 
-    public void setRecetteOwner(User recetteOwner) {
+    public void setRecetteOwner(String recetteOwner) {
         this.recetteOwner = recetteOwner;
     }
+
+    public int getCategorie_id() {
+        return categorie_id;
+    }
+
+    public void setCategorie_id(int categorie_id) {
+        this.categorie_id = categorie_id;
+    }
+
+
 
     public int getRecette_id() {
         return recette_id;
@@ -53,11 +82,4 @@ public class Recette {
         this.recette_duree = recette_duree;
     }
 
-    public int getRecette_image() {
-        return recette_image;
-    }
-
-    public void setRecette_image(int recette_image) {
-        this.recette_image = recette_image;
-    }
 }
