@@ -174,4 +174,25 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return recetteList;
     }
+    public Recette getRecetteById(int recette_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM recette WHERE recette_id = ?", new String[]{String.valueOf(recette_id)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String titre = cursor.getString(cursor.getColumnIndexOrThrow("recette_titre"));
+            int duree = cursor.getInt(cursor.getColumnIndexOrThrow("recette_duree"));
+            byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("recette_image"));
+            String ingredient = cursor.getString(cursor.getColumnIndexOrThrow("recette_ingredient"));
+            String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            int category_id = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"));
+
+            Recette recette = new Recette(recette_id, titre, duree, image, ingredient, username, category_id);
+
+            cursor.close();
+            return recette;
+        }
+        if (cursor != null) {
+            cursor.close();     }
+        return null;
+    }
 }

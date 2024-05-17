@@ -1,6 +1,7 @@
 package com.example.gestion_recettes.Models;
 
 
+import android.media.Image;
 import android.net.Uri;
 
 import java.util.List;
@@ -77,9 +78,14 @@ public class Recette {
     public int getRecette_duree() {
         return recette_duree;
     }
-
     public void setRecette_duree(int recette_duree) {
         this.recette_duree = recette_duree;
     }
 
+
+
+
+    public String getRecette_ingredient() {
+        return ingredients;
+    }
 }

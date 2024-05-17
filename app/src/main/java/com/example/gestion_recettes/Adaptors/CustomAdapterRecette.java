@@ -1,6 +1,8 @@
 package com.example.gestion_recettes.Adaptors;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -12,7 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gestion_recettes.Afficher_recette;
+import com.example.gestion_recettes.HomePage;
 import com.example.gestion_recettes.Models.Recette;
 import com.example.gestion_recettes.R;
 import com.google.android.material.chip.Chip;
@@ -47,7 +52,24 @@ public class CustomAdapterRecette extends ArrayAdapter {
         recetteOwner.setText(recetteArrayList.get(position).getRecetteOwner());
         dureeRecette.setText(String.valueOf(recetteArrayList.get(position).getRecette_duree()) + " min");
 
+
+
+
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Afficher_recette.class);
+                intent.putExtra("recette_id", recetteArrayList.get(position).getRecette_id());
+                getContext().startActivity(intent);
+            }
+        });
+
+
         return convertView;
+
+
+
 
     }
 }

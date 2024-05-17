@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Gestion_Recettes"
         tools:targetApi="31">
         <activity
+            android:name=".Afficher_recette"
+            android:exported="false" />
+        <activity
             android:name=".UserModification"
             android:exported="false" />
         <activity
