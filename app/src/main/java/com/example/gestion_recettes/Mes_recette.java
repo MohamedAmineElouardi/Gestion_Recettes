@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.gestion_recettes.Adaptors.CustomAdapterRecette;
 import com.example.gestion_recettes.Models.Recette;
-import com.example.gestion_recettes.ui.home.HomeFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,9 +25,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -40,11 +36,12 @@ import com.example.gestion_recettes.databinding.ActivityHomePageBinding;
 
 import java.util.List;
 
-public class HomePage extends AppCompatActivity {
+public class Mes_recette extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomePageBinding binding;
     public static ListView recetteList;
+    SharedPreferences sharedPref;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     ActivityResultLauncher<String[]> storagePermissionRequest;
@@ -53,20 +50,19 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomePageBinding.inflate(getLayoutInflater());
-        //setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarHomePage.toolbar);
 
-        loadFragment(new HomeFragment());
+        binding = ActivityHomePageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.appBarHomePage.toolbar);
         binding.appBarHomePage.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ajouterRecette = new Intent(getApplicationContext(), CreationRecette.class);
-                startActivity(ajouterRecette);
+                Intent etapeIntent = new Intent(getApplicationContext(), CreationRecette.class);
+                startActivity(etapeIntent);
 
             }
         });
-        //recetteList = findViewById(R.id.recettelist);
+        recetteList = findViewById(R.id.recettelist);
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -81,7 +77,7 @@ public class HomePage extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         try{
             TextView user = navigationView.getHeaderView(0).findViewById(R.id.username_textview);
-            SharedPreferences sharedPref = getSharedPreferences("sharedData",Context.MODE_PRIVATE);
+            sharedPref = getSharedPreferences("sharedData",Context.MODE_PRIVATE);
             user.setText(sharedPref.getString("username", "USER"));
         }
         catch (Exception e){
@@ -89,7 +85,7 @@ public class HomePage extends AppCompatActivity {
         }
         /*Own functions*/
         try {
-            //setadadper();
+            setadadper();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -126,18 +122,7 @@ public class HomePage extends AppCompatActivity {
 
     public void setadadper(){
         DBHelper db = new DBHelper(getApplicationContext());
-        CustomAdapterRecette customAdapterRecette = new CustomAdapterRecette(this, 0, db.listerRecette());
+        CustomAdapterRecette customAdapterRecette = new CustomAdapterRecette(this, 0, db.listerRecetteByUsername(sharedPref.getString("username", "USER")));
         recetteList.setAdapter(customAdapterRecette);
-    }
-
-
-    private void loadFragment(Fragment fragment) {
-        // Create a FragmentManager
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // Create a FragmentTransaction to begin the transaction and replace the Fragment
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // Replace the FrameLayout with the new Fragment
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit(); // Save the changes
     }
 }

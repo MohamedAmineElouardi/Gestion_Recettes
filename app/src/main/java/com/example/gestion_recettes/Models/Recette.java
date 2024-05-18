@@ -15,6 +15,7 @@ public class Recette {
     private String ingredients;
     private int categorie_id;
 
+
     public String getIngredients() {
         return ingredients;
     }

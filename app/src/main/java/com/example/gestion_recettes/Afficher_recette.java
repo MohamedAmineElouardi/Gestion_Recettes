@@ -1,14 +1,17 @@
-// In Afficher_recette.java
 package com.example.gestion_recettes;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gestion_recettes.Models.Recette;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Afficher_recette extends AppCompatActivity {
 
@@ -16,6 +19,9 @@ public class Afficher_recette extends AppCompatActivity {
     private TextView dureeRecette;
     private TextView ingredientRecette;
     private ImageView imageRecette;
+    private FloatingActionButton shr;
+    private Recette recette;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,23 @@ public class Afficher_recette extends AppCompatActivity {
         dureeRecette = findViewById(R.id.dureeRecette);
         ingredientRecette = findViewById(R.id.ingredientRecette);
         imageRecette = findViewById(R.id.imageRecette);
+        shr = findViewById(R.id.share);
+
+        shr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myintent = new Intent(Intent.ACTION_SEND);
+                myintent.setType("text/plain");
+                String shareBody = "Title: " + titreRecette.getText().toString()
+                        + "\nDuration: " + dureeRecette.getText().toString()
+                        + "\nIngredient: " + ingredientRecette.getText().toString() ;
+                String shareSub = "This is the subject to share.";
+                myintent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+                myintent.putExtra(Intent.EXTRA_TEXT, shareBody);
+
+                startActivity(Intent.createChooser(myintent, "Share recettr"));
+            }
+        });
 
         int recette_id = getIntent().getIntExtra("recette_id", -1);
         if (recette_id != -1) {

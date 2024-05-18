@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("username", username.getText().toString());
                     editor.apply();
                     System.out.println(sharedPreferences.getAll());
-                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                    Intent intent = new Intent(getApplicationContext(), NewHomePage.class);
                     intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     startActivity(intent);
                 }

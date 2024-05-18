@@ -174,6 +174,23 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return recetteList;
     }
+    public ArrayList<Recette> listerRecetteByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("SELECT * FROM Recette WHERE username = ?", new String[]{username});
+        ArrayList<Recette> recetteList = new ArrayList<>();
+        while (cur.moveToNext()) {
+            recetteList.add(new Recette(cur.getInt(0),
+                    cur.getString(1),
+                    cur.getInt(2),
+                    cur.getBlob(3),
+                    cur.getString(5),
+                    cur.getString(4),
+                    cur.getInt(6)
+            ));
+        }
+        cur.close();
+        return recetteList;
+    }
     public Recette getRecetteById(int recette_id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM recette WHERE recette_id = ?", new String[]{String.valueOf(recette_id)});
