@@ -1,10 +1,10 @@
 package com.example.gestion_recettes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -19,6 +19,7 @@ import com.example.gestion_recettes.databinding.ActivityNewHomePageBinding;
 public class NewHomePage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
     private ActivityNewHomePageBinding binding;
 
     @Override
@@ -30,13 +31,13 @@ public class NewHomePage extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarNewHomePage.toolbar);
         binding.appBarNewHomePage.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
+                @Override
+                public void onClick(View view) {
+                    Intent ajouterRecette = new Intent(getApplicationContext(), CreationRecette.class);
+                    startActivity(ajouterRecette);
+
+                }
+            });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -48,6 +49,10 @@ public class NewHomePage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_new_home_page);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
+
     }
 
     @Override
@@ -63,4 +68,5 @@ public class NewHomePage extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

@@ -6,5 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserModification">
+    <!-- activity_update_recette.xml -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editTitreRecette"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title" />
+
+        <EditText
+            android:id="@+id/editDureeRecette"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Duration" />
+
+        <EditText
+            android:id="@+id/editIngredientRecette"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingredients" />
+
+        <ImageView
+            android:id="@+id/editImageRecette"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Recette Image" />
+
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Recipe" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

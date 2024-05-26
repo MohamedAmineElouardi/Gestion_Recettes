@@ -8,6 +8,7 @@
     tools:context=".Afficher_recette">
 
 
+
     <!-- activity_afficher_recette.xml -->
     <LinearLayout
         android:layout_width="match_parent"
