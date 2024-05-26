@@ -22,4 +22,9 @@
         android:name="com.example.gestion_recettes.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/user_Modification"
+        android:name="com.example.gestion_recettes.User_Modification"
+        android:label="fragment_user__modification"
+        tools:layout="@layout/fragment_user__modification" />
 </navigation>
