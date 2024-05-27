@@ -232,4 +232,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.update("recette", contentValues, "recette_id = ?", new String[]{String.valueOf(recetteId)});
     }
+
+    public ArrayList<Recette> chercherRecette(String titre){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("select * from Recette where recette_titre = ?", new String[]{titre});
+        ArrayList<Recette> recetteList = new ArrayList<>();
+        while (cur.moveToNext()){
+            recetteList.add(new Recette(cur.getInt(0),
+                    cur.getString(1),
+                    cur.getInt(2),
+                    cur.getBlob(3),
+                    cur.getString(4),
+                    cur.getString(5),
+                    cur.getString(6),
+                    cur.getInt(7)
+            ));
+        }
+        return recetteList;
+    }
 }

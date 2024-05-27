@@ -122,6 +122,7 @@ public class Mes_recette extends AppCompatActivity {
 
     public void setadadper(){
         DBHelper db = new DBHelper(getApplicationContext());
+
         CustomAdapterRecette customAdapterRecette = new CustomAdapterRecette(this, 0, db.listerRecetteByUsername(sharedPref.getString("username", "USER")));
         recetteList.setAdapter(customAdapterRecette);
     }
