@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
@@ -23,8 +23,8 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
-        android:id="@+id/user_Modification"
-        android:name="com.example.gestion_recettes.User_Modification"
-        android:label="fragment_user__modification"
-        tools:layout="@layout/fragment_user__modification" />
+        android:id="@+id/modiferUser"
+        android:name="com.example.gestion_recettes.modiferUser"
+        android:label="fragment_modifer_user"
+        tools:layout="@layout/fragment_modifer_user" />
 </navigation>

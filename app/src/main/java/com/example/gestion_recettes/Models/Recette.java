@@ -1,8 +1,10 @@
 package com.example.gestion_recettes.Models;
 
 
+import android.media.Image;
 import android.net.Uri;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Recette {
@@ -12,17 +14,41 @@ public class Recette {
     private byte[] recette_image;
     private String recetteOwner;
     private String ingredients;
+    private String etapes;
     private int categorie_id;
+
 
     public String getIngredients() {
         return ingredients;
+    }
+
+    public String getEtapes() {
+        return etapes;
+    }
+
+    public void setEtapes(String etapes) {
+        this.etapes = etapes;
     }
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
-    public Recette(int recette_id, String recette_titre, int recette_duree, byte[] recette_image, String recetteOwner, String ingredients, int categorie_id) {
+    @Override
+    public String toString() {
+        return "Recette{" +
+                "recette_id=" + recette_id +
+                ", recette_titre='" + recette_titre + '\'' +
+                ", recette_duree=" + recette_duree +
+                ", recette_image=" + Arrays.toString(recette_image) +
+                ", recetteOwner='" + recetteOwner + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", etapes='" + etapes + '\'' +
+                ", categorie_id=" + categorie_id +
+                '}';
+    }
+
+    public Recette(int recette_id, String recette_titre, int recette_duree, byte[] recette_image,  String ingredients,  String etapes, String recetteOwner, int categorie_id) {
         this.recette_id = recette_id;
         this.recette_titre = recette_titre;
         this.recette_duree = recette_duree;
@@ -30,6 +56,7 @@ public class Recette {
         this.recetteOwner = recetteOwner;
         this.ingredients = ingredients;
         this.categorie_id = categorie_id;
+        this.etapes = etapes;
     }
 
     public byte[] getRecette_image() {
@@ -77,9 +104,11 @@ public class Recette {
     public int getRecette_duree() {
         return recette_duree;
     }
-
     public void setRecette_duree(int recette_duree) {
         this.recette_duree = recette_duree;
     }
 
+    public String getRecette_ingredient() {
+        return ingredients;
+    }
 }

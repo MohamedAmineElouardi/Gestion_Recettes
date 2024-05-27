@@ -136,7 +136,7 @@
                 android:id="@+id/sginUp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="signUp"/>
+                android:text="Continuer comme invite"/>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="50dp" />

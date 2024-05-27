@@ -69,25 +69,12 @@ public class CreationRecette extends AppCompatActivity {
 
         EditText recetteTitre = (EditText) findViewById(R.id.RecetteTitre);
         Button addImage = findViewById(R.id.addImage);
-        Button addEtape = (Button) findViewById(R.id.addEtape);
         LinearLayout EtapeLayout = findViewById(R.id.EtapesLayout);
         FloatingActionButton DoneButton = findViewById(R.id.DoneButton);
-        Integer duration = (Integer) mspin.getSelectedItem();
         EditText ingredients = findViewById(R.id.ingredients);
-        imageView =  findViewById(R.id.imageView);
+        EditText etape = findViewById(R.id.etapes);
 
-        addEtape.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText newEditText = new EditText(getApplicationContext());
-                newEditText.setLayoutParams(new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                ));
-                newEditText.setHint("Next Step?");
-                EtapeLayout.addView(newEditText);
-            }
-        });
+        imageView =  findViewById(R.id.imageView);
 
         addImage.setOnClickListener(view->pickImage());
 
@@ -97,10 +84,11 @@ public class CreationRecette extends AppCompatActivity {
             public void onClick(View v) {
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
                 SharedPreferences sharedPreferences = getSharedPreferences("sharedData", MODE_PRIVATE);
+                Integer duration = (Integer) mspin.getSelectedItem();
 
                 boolean res = false;
-                if (!recetteTitre.getText().toString().equals("")||!imageBlob.equals(null)||!ingredients.getText().toString().equals("")) {
-                    res = dbHelper.insertRecette(recetteTitre.getText().toString(), duration, imageBlob, sharedPreferences.getString("username", null), ingredients.getText().toString());
+                if (!recetteTitre.getText().toString().equals("")||imageBlob.length!=0||!ingredients.getText().toString().equals("")) {
+                    res = dbHelper.insertRecette(recetteTitre.getText().toString(), duration, imageBlob,  ingredients.getText().toString(), etape.getText().toString() ,sharedPreferences.getString("username", null));
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
@@ -113,6 +101,8 @@ public class CreationRecette extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
 
                 }
+                Intent intent = new Intent(getApplicationContext(), NewHomePage.class);
+                startActivity(intent);
             }
         });
     }
@@ -128,6 +118,7 @@ public class CreationRecette extends AppCompatActivity {
             public void onActivityResult(ActivityResult result)  {
                 try {
                     imageBlob = getBlobFromUri(result.getData().getData());
+                    imageView.setImageURI(result.getData().getData());
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);

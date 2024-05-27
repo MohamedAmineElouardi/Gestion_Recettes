@@ -34,10 +34,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "recette_duree INTEGER, " +
                 "recette_image BLOB, " +
                 "recette_ingredient TEXT, " +
+                "recette_etape TEXT, " +
                 "username TEXT, " +
                 "category_id INTEGER, " +
                 "FOREIGN KEY(username) REFERENCES users(username), " +
-                "FOREIGN KEY(category_id) REFERENCES category(category_id))" // Add foreign key constraint for category_id
+                "FOREIGN KEY(category_id) REFERENCES category(category_id))"
         );
 
         // table etape
@@ -61,10 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(recette_id) REFERENCES recette(recette_id),"+
                 "PRIMARY KEY(username, recette_id))"
         );
-        insertData("Ahmed", "");
         /*db.execSQL("Insert into user_like values("+"Ahmed"+",1)");*/
-
-
     }
 
     @Override
@@ -89,13 +87,14 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
-    public boolean insertRecette(String titre, int duree, byte[] image, String username, String ingredients) {
+    public boolean insertRecette(String titre, int duree, byte[] image, String ingredients, String etapes, String username) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("recette_titre", titre);
         contentValues.put("recette_duree", duree);
         contentValues.put("recette_image", image);
         contentValues.put("recette_ingredient", ingredients);
+        contentValues.put("recette_etape", etapes);
         contentValues.put("username", username);
         long result = db.insert("recette", null, contentValues);
         return result != -1;
@@ -167,11 +166,70 @@ public class DBHelper extends SQLiteOpenHelper {
                     cur.getString(1),
                     cur.getInt(2),
                     cur.getBlob(3),
-                    cur.getString(5),
                     cur.getString(4),
-                    cur.getInt(6)
+                    cur.getString(5),
+                    cur.getString(6),
+                    cur.getInt(7)
                     ));
         }
+        /*"recette_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "recette_titre TEXT, " +
+                "recette_duree INTEGER, " +
+                "recette_image BLOB, " +
+                "recette_ingredient TEXT, " +
+                "recette_etape TEXT, " +
+                "username TEXT, " +
+                "category_id INTEGER, " +*/
         return recetteList;
+    }
+    public ArrayList<Recette> listerRecetteByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("SELECT * FROM Recette WHERE username = ?", new String[]{username});
+        ArrayList<Recette> recetteList = new ArrayList<>();
+        while (cur.moveToNext()) {
+            recetteList.add(new Recette(cur.getInt(0),
+                    cur.getString(1),
+                    cur.getInt(2),
+                    cur.getBlob(3),
+                    cur.getString(4),
+                    cur.getString(5),
+                    cur.getString(6),
+                    cur.getInt(7)
+            ));
+        }
+        cur.close();
+        return recetteList;
+    }
+    public Recette getRecetteById(int recette_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM recette WHERE recette_id = ?", new String[]{String.valueOf(recette_id)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String titre = cursor.getString(cursor.getColumnIndexOrThrow("recette_titre"));
+            int duree = cursor.getInt(cursor.getColumnIndexOrThrow("recette_duree"));
+            byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("recette_image"));
+            String ingredient = cursor.getString(cursor.getColumnIndexOrThrow("recette_ingredient"));
+            String etape = cursor.getString(cursor.getColumnIndexOrThrow("recette_etape"));
+            String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            int category_id = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"));
+
+            Recette recette = new Recette(recette_id, titre, duree, image, ingredient, etape,username, category_id);
+
+            cursor.close();
+            return recette;
+        }
+        if (cursor != null) {
+            cursor.close();     }
+        return null;
+    }
+    public void updateRecette(int recetteId, String newTitle, int newDuration, byte[] newImage, String newIngredients) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("recette_titre", newTitle);
+        contentValues.put("recette_duree", newDuration);
+        contentValues.put("recette_image", newImage);
+        contentValues.put("recette_ingredient", newIngredients);
+
+        db.update("recette", contentValues, "recette_id = ?", new String[]{String.valueOf(recetteId)});
     }
 }

@@ -15,16 +15,19 @@
     </group>
 
     <!-- Add a divider to visually separate the main items from the logout item -->
+
     <item android:title="Compte">
         <menu>
+            <!--Change when user is logged in-->
             <item
+                android:visible="false"
                 android:id="@+id/nav_account_settings"
                 android:icon="@drawable/ic_settings"
                 android:title="Parametre du compte"/>
             <item
                 android:id="@+id/nav_slideshow"
                 android:icon="@drawable/ic_logout"
-                android:title="Deconnexion"/>
+                android:title="Se Connecter"/>
         </menu>
     </item>
 </menu>

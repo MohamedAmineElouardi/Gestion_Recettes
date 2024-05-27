@@ -4,4 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"/>
+    tools:context=".ui.home.HomeFragment"
+    >
+
+    <ListView
+        android:id="@+id/recettelist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="9dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
