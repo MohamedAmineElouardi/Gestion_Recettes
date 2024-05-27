@@ -26,6 +26,7 @@ import com.example.gestion_recettes.databinding.ActivityNewHomePageBinding;
 
 public class NewHomePage extends AppCompatActivity {
 
+
     private AppBarConfiguration mAppBarConfiguration;
 
     private ActivityNewHomePageBinding binding;
@@ -43,6 +44,7 @@ public class NewHomePage extends AppCompatActivity {
         if (!sharedPreferences.contains("username")){
             binding.appBarNewHomePage.fab.setEnabled(false);
         }
+
         binding.appBarNewHomePage.fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
