@@ -1,11 +1,8 @@
 package com.example.gestion_recettes.Models;
 
 
-import android.media.Image;
-import android.net.Uri;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Recette {
     private int recette_id;

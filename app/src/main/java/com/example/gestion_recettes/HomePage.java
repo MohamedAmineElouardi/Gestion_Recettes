@@ -1,31 +1,24 @@
 package com.example.gestion_recettes;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Adapter;
+
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gestion_recettes.Adaptors.CustomAdapterRecette;
-import com.example.gestion_recettes.Models.Recette;
 import com.example.gestion_recettes.ui.home.HomeFragment;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,7 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gestion_recettes.databinding.ActivityHomePageBinding;
 
-import java.util.List;
+
 
 public class HomePage extends AppCompatActivity {
 

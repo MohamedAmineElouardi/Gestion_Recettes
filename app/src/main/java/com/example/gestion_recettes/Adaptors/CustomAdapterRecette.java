@@ -4,8 +4,7 @@ package com.example.gestion_recettes.Adaptors;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;; // Import your modification activity
-import android.net.Uri;
+import android.graphics.BitmapFactory;;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +15,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import android.app.*;
 import com.example.gestion_recettes.Afficher_recette;
-import com.example.gestion_recettes.DBHelper;
-import com.example.gestion_recettes.HomePage;
+
 import com.example.gestion_recettes.Models.Recette;
 import com.example.gestion_recettes.R;
 import com.example.gestion_recettes.UserModification;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class CustomAdapterRecette extends ArrayAdapter {
 

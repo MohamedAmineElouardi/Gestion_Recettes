@@ -5,14 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
-import android.widget.Toast;
-
-import com.example.gestion_recettes.Models.Category;
 import com.example.gestion_recettes.Models.Recette;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
