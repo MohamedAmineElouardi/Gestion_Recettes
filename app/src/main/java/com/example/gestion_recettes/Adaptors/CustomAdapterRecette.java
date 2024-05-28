@@ -5,6 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;;
+import android.graphics.BitmapFactory;; // Import your modification activity
+import android.net.Uri;
+import android.graphics.BitmapFactory;; // Import your modification activity
+import android.net.Uri;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +35,7 @@ public class CustomAdapterRecette extends ArrayAdapter {
 
     ArrayList<Recette> recetteArrayList;
     LayoutInflater inf;
+    TextView rechercherRec;
 
     public CustomAdapterRecette(@NonNull Context context, int resource, @NonNull ArrayList<Recette> listRecette) {
         super(context, resource, listRecette);
@@ -40,7 +47,7 @@ public class CustomAdapterRecette extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = inf.inflate(R.layout.custom_listview_recette, null);
-
+        rechercherRec = convertView.findViewById(R.id.chercher);
         ImageView imageRecette = convertView.findViewById(R.id.imagerecette);
         TextView titreRecettee = convertView.findViewById(R.id.recetteTitle);
         Chip dureeRecette = convertView.findViewById(R.id.dureeChip);
@@ -69,7 +76,7 @@ public class CustomAdapterRecette extends ArrayAdapter {
         });
         if (!sharedPreferences.contains("username")){
             modifyButton.setEnabled(false);
-            modifyButton.setVisibility(View.INVISIBLE);
+            modifyButton.setVisibility(View.GONE);
         }
 
         return convertView;

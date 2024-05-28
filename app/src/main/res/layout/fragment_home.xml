@@ -4,14 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".ui.home.HomeFragment"
     >
 
-    <ListView
-        android:id="@+id/recettelist"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/chercher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Chercher une recette" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/recettelist"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
         android:footerDividersEnabled="false"

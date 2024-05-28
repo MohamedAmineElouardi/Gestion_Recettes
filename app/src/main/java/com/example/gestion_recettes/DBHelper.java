@@ -94,6 +94,15 @@ public class DBHelper extends SQLiteOpenHelper {
         long result = db.insert("recette", null, contentValues);
         return result != -1;
     }
+    public void deleteCategories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from category");
+    }
+
+    public void deleteRecette(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from recette where recette_id=?", new Object[]{id});
+    }
 
     public boolean insertEtape(int recetteId, String text) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -217,14 +226,33 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.close();     }
         return null;
     }
-    public void updateRecette(int recetteId, String newTitle, int newDuration, byte[] newImage, String newIngredients) {
+    public void updateRecette(int recetteId, String newTitle, int newDuration, byte[] newImage, String newIngredients, String newEtapes) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("recette_titre", newTitle);
         contentValues.put("recette_duree", newDuration);
         contentValues.put("recette_image", newImage);
         contentValues.put("recette_ingredient", newIngredients);
+        contentValues.put("recette_etape",newEtapes);
 
         db.update("recette", contentValues, "recette_id = ?", new String[]{String.valueOf(recetteId)});
+    }
+
+    public ArrayList<Recette> chercherRecette(String titre){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("select * from Recette where recette_titre = ?", new String[]{titre});
+        ArrayList<Recette> recetteList = new ArrayList<>();
+        while (cur.moveToNext()){
+            recetteList.add(new Recette(cur.getInt(0),
+                    cur.getString(1),
+                    cur.getInt(2),
+                    cur.getBlob(3),
+                    cur.getString(4),
+                    cur.getString(5),
+                    cur.getString(6),
+                    cur.getInt(7)
+            ));
+        }
+        return recetteList;
     }
 }
