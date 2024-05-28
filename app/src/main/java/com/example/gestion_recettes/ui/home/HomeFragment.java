@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
                 }
                 else{
                     ArrayList<Recette> filteredRecettes = recetteListDb.stream()
-                            .filter(recette -> recette.getRecette_titre().startsWith(s.toString()))
+                            .filter(recette -> recette.getRecette_titre().toLowerCase().startsWith(s.toString().toLowerCase()))
                             .collect(Collectors.toCollection(ArrayList::new));
                     CustomAdapterRecette customAdapterRecette = new CustomAdapterRecette(getContext(), 0, filteredRecettes);
                     recetteList.setAdapter(customAdapterRecette);

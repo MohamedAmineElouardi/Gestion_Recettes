@@ -20,6 +20,7 @@ public class UserModification extends AppCompatActivity {
     private EditText editIngredientRecette;
     private ImageView editImageRecette;
     private Button updateButton;
+    private EditText editEtapeRecette;
     private int recetteId;
     private byte[] recetteImage;
 
@@ -31,6 +32,7 @@ public class UserModification extends AppCompatActivity {
         editTitreRecette = findViewById(R.id.editTitreRecette);
         editDureeRecette = findViewById(R.id.editDureeRecette);
         editIngredientRecette = findViewById(R.id.editIngredientRecette);
+        editEtapeRecette = findViewById(R.id.editEtapeRecette);
         editImageRecette = findViewById(R.id.editImageRecette);
         updateButton = findViewById(R.id.updateButton);
 
@@ -57,6 +59,7 @@ public class UserModification extends AppCompatActivity {
         editTitreRecette.setText(recette.getRecette_titre());
         editDureeRecette.setText(String.valueOf(recette.getRecette_duree()));
         editIngredientRecette.setText(recette.getRecette_ingredient());
+        editEtapeRecette.setText(recette.getEtapes());
         recetteImage = recette.getRecette_image();
         if (recetteImage != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(recetteImage, 0, recetteImage.length);
@@ -68,11 +71,12 @@ public class UserModification extends AppCompatActivity {
         String newTitle = editTitreRecette.getText().toString();
         int newDuration = Integer.parseInt(editDureeRecette.getText().toString());
         String newIngredients = editIngredientRecette.getText().toString();
+        String newEtapes = editEtapeRecette.getText().toString();
 
         DBHelper dbHelper = new DBHelper(this);
-        dbHelper.updateRecette(recetteId, newTitle, newDuration, recetteImage, newIngredients);
+        dbHelper.updateRecette(recetteId, newTitle, newDuration, recetteImage, newIngredients, newEtapes);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, NewHomePage.class);
         startActivity(intent);
         finish();
     }

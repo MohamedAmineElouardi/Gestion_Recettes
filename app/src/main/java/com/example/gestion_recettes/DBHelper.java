@@ -99,6 +99,10 @@ public class DBHelper extends SQLiteOpenHelper {
         long result = db.insert("recette", null, contentValues);
         return result != -1;
     }
+    public void deleteCategories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete from category");
+    }
 
     public boolean insertEtape(int recetteId, String text) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -222,13 +226,14 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.close();     }
         return null;
     }
-    public void updateRecette(int recetteId, String newTitle, int newDuration, byte[] newImage, String newIngredients) {
+    public void updateRecette(int recetteId, String newTitle, int newDuration, byte[] newImage, String newIngredients, String newEtapes) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("recette_titre", newTitle);
         contentValues.put("recette_duree", newDuration);
         contentValues.put("recette_image", newImage);
         contentValues.put("recette_ingredient", newIngredients);
+        contentValues.put("recette_etape",newEtapes);
 
         db.update("recette", contentValues, "recette_id = ?", new String[]{String.valueOf(recetteId)});
     }

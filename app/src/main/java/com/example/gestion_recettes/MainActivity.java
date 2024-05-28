@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         * Insertion des donnes dans la base donnee
         * */
+        db.deleteCategories();
         db.insertCategory("Déjeuners et brunchs");
         db.insertCategory("Bouchées et entrées");
         db.insertCategory("Plats principaux");
